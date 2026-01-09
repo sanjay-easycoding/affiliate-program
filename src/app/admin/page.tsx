@@ -648,27 +648,18 @@ function PartnersPage() {
   const fetchPartners = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/affiliates');
-      const data = await response.json();
+      // API call commented out - using dummy data
+      // const response = await fetch('/api/admin/affiliates');
+      // const data = await response.json();
       
-      if (data.success) {
-        const formattedPartners = data.affiliates.map((aff: any) => ({
-          id: aff.id,
-          userId: aff.userId,
-          name: aff.user.name,
-          email: aff.user.email,
-          referralCode: aff.referralCode,
-          status: aff.user.status, // Removed fallback - use actual status from database
-          createdAt: aff.createdAt,
-          clicks: 0, // Will be populated with click tracking
-          leads: aff._count?.referrals || 0,
-          customers: aff._count?.referrals || 0,
-          revenue: 0, // Will calculate from conversions
-          earnings: aff.balanceCents || 0,
-          groupName: ''
-        }));
-        setPartners(formattedPartners);
-      }
+      // Dummy partners data
+      const dummyPartners = [
+        { id: '1', userId: 'u1', name: 'John Doe', email: 'john@example.com', referralCode: 'JOHN-123', status: 'ACTIVE', createdAt: new Date().toISOString(), clicks: 45, leads: 10, customers: 8, revenue: 500000, earnings: 100000, groupName: 'Default' },
+        { id: '2', userId: 'u2', name: 'Jane Smith', email: 'jane@example.com', referralCode: 'JANE-456', status: 'ACTIVE', createdAt: new Date(Date.now() - 86400000).toISOString(), clicks: 30, leads: 8, customers: 6, revenue: 350000, earnings: 70000, groupName: 'Default' },
+        { id: '3', userId: 'u3', name: 'Bob Johnson', email: 'bob@example.com', referralCode: 'BOB-789', status: 'PENDING', createdAt: new Date(Date.now() - 172800000).toISOString(), clicks: 12, leads: 3, customers: 2, revenue: 150000, earnings: 30000, groupName: 'Premium' }
+      ];
+      
+      setPartners(dummyPartners);
     } catch (error) {
       console.error('Failed to fetch partners:', error);
     } finally {
@@ -734,39 +725,37 @@ function PartnersPage() {
   const handleCreatePartner = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
-      const response = await fetch('/api/admin/affiliates', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          name: `${newPartner.firstName} ${newPartner.lastName}`.trim(),
-          email: newPartner.email,
-          company: newPartner.company,
-          payoutMethod: newPartner.payoutMethod,
-          paypalEmail: newPartner.paypalEmail || newPartner.email
-        })
-      });
-
-      const data = await response.json();
+      // API call commented out - simulating success
+      // const response = await fetch('/api/admin/affiliates', {
+      //   method: 'POST',
+      //   headers: { 'Content-Type': 'application/json' },
+      //   body: JSON.stringify({
+      //     name: `${newPartner.firstName} ${newPartner.lastName}`.trim(),
+      //     email: newPartner.email,
+      //     company: newPartner.company,
+      //     payoutMethod: newPartner.payoutMethod,
+      //     paypalEmail: newPartner.paypalEmail || newPartner.email
+      //   })
+      // });
+      // const data = await response.json();
       
-      if (data.success) {
-        alert(`Partner created successfully!\n\nName: ${data.affiliate.name}\nEmail: ${data.affiliate.email}\nReferral Code: ${data.affiliate.referralCode}\nPassword: ${data.password}\n\nPlease save this information and share it with the partner.`);
-        setShowCreateModal(false);
-        setNewPartner({
-          firstName: '',
-          lastName: '',
-          email: '',
-          company: '',
-          partnerGroup: 'Default',
-          country: 'N/A',
-          payoutMethod: 'PayPal',
-          paypalEmail: '',
-          sendWelcomeEmail: true,
-          trackingParameter: 'ref'
-        });
-        fetchPartners();
-      } else {
-        alert(data.message || 'Failed to create partner');
-      }
+      // Simulate successful partner creation
+      const dummyReferralCode = `${newPartner.firstName.toUpperCase().substr(0, 4)}-${Math.random().toString(36).substr(2, 4).toUpperCase()}`;
+      alert(`Partner created successfully!\n\nName: ${newPartner.firstName} ${newPartner.lastName}\nEmail: ${newPartner.email}\nReferral Code: ${dummyReferralCode}\nPassword: TempPassword123\n\nPlease save this information and share it with the partner.`);
+      setShowCreateModal(false);
+      setNewPartner({
+        firstName: '',
+        lastName: '',
+        email: '',
+        company: '',
+        partnerGroup: 'Default',
+        country: 'N/A',
+        payoutMethod: 'PayPal',
+        paypalEmail: '',
+        sendWelcomeEmail: true,
+        trackingParameter: 'ref'
+      });
+      fetchPartners();
     } catch (error) {
       console.error('Failed to create partner:', error);
       alert('Failed to create partner');
@@ -2277,18 +2266,37 @@ function ProgramSettingsPage() {
 
   const fetchSettings = async () => {
     try {
-      const response = await fetch('/api/admin/settings');
-      const data = await response.json();
+      // API call commented out - using dummy data
+      // const response = await fetch('/api/admin/settings');
+      // const data = await response.json();
+      
+      // Dummy settings data
+      const data = {
+        success: true,
+        settings: {
+          productName: 'Refferq',
+          programName: 'Refferq Affiliate Program',
+          websiteUrl: 'https://refferq.com',
+          currency: 'INR',
+          blockedCountries: [],
+          portalSubdomain: 'app.refferq.com',
+          termsOfService: '',
+          minimumPayoutThreshold: 100000, // ₹1,000
+          payoutTerm: 'NET-15',
+          payoutMethods: ['PayPal', 'Bank Transfer']
+        }
+      };
+      
       if (data.success && data.settings) {
         setSettings(data.settings);
         // Update forms with fetched data
         setGeneralForm({
-          productName: data.settings.productName || 'BsBot',
-          programName: data.settings.programName || "BsBot's Affiliate Program",
-          websiteUrl: data.settings.websiteUrl || 'https://kyns.com',
+          productName: data.settings.productName || 'Refferq',
+          programName: data.settings.programName || "Refferq Affiliate Program",
+          websiteUrl: data.settings.websiteUrl || 'https://refferq.com',
           currency: data.settings.currency || 'INR',
           blockedCountries: data.settings.blockedCountries || [],
-          portalSubdomain: data.settings.portalSubdomain || 'bsbot.tolt.io',
+          portalSubdomain: data.settings.portalSubdomain || 'app.refferq.com',
           termsOfService: data.settings.termsOfService || '',
           minimumPayoutThreshold: data.settings.minimumPayoutThreshold || 0,
           payoutTerm: data.settings.payoutTerm || 'NET-15',
@@ -3260,25 +3268,17 @@ function PayoutsPage() {
   const fetchPayouts = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/admin/payouts');
-      const data = await response.json();
+      // API call commented out - using dummy data
+      // const response = await fetch('/api/admin/payouts');
+      // const data = await response.json();
       
-      if (data.success) {
-        const formattedPayouts: Payout[] = data.payouts.map((payout: any) => ({
-          id: payout.id,
-          partnerId: payout.userId,
-          partnerName: payout.user?.name || 'Unknown',
-          partnerEmail: payout.user?.email || '',
-          method: payout.method,
-          commissionPeriodStart: payout.createdAt,
-          commissionPeriodEnd: payout.createdAt,
-          amountCents: payout.amountCents,
-          status: payout.status,
-          createdAt: payout.createdAt,
-          processedAt: payout.processedAt
-        }));
-        setPayouts(formattedPayouts);
-      }
+      // Dummy payouts data
+      const dummyPayouts: Payout[] = [
+        { id: '1', partnerId: 'u1', partnerName: 'John Doe', partnerEmail: 'john@example.com', method: 'PayPal', commissionPeriodStart: new Date().toISOString(), commissionPeriodEnd: new Date().toISOString(), amountCents: 100000, status: 'PENDING', createdAt: new Date().toISOString(), processedAt: null },
+        { id: '2', partnerId: 'u2', partnerName: 'Jane Smith', partnerEmail: 'jane@example.com', method: 'Bank Transfer', commissionPeriodStart: new Date(Date.now() - 86400000).toISOString(), commissionPeriodEnd: new Date(Date.now() - 86400000).toISOString(), amountCents: 75000, status: 'COMPLETED', createdAt: new Date(Date.now() - 86400000).toISOString(), processedAt: new Date(Date.now() - 86400000).toISOString() }
+      ];
+      
+      setPayouts(dummyPayouts);
     } catch (error) {
       console.error('Failed to fetch payouts:', error);
     } finally {
@@ -6263,112 +6263,58 @@ export default function AdminDashboard() {
   const [activePage, setActivePage] = useState('home');
 
   useEffect(() => {
-    if (user && user.role === 'ADMIN') {
-      fetchDashboardData();
-    }
-  }, [user]);
+    fetchDashboardData();
+  }, []);
 
   const fetchDashboardData = async () => {
     try {
-      const statsRes = await fetch('/api/admin/dashboard');
-      const statsData = await statsRes.json();
-      
-      const analyticsRes = await fetch('/api/admin/analytics?days=30');
-      const analyticsData = await analyticsRes.json();
-      
-      const referralsRes = await fetch('/api/admin/referrals');
-      const referralsData = await referralsRes.json();
+      // API calls commented out - using dummy data
+      // const statsRes = await fetch('/api/admin/dashboard');
+      // const statsData = await statsRes.json();
+      // const analyticsRes = await fetch('/api/admin/analytics?days=30');
+      // const analyticsData = await analyticsRes.json();
+      // const referralsRes = await fetch('/api/admin/referrals');
+      // const referralsData = await referralsRes.json();
 
-      if (statsData.success) {
-        setStats({
-          totalRevenue: statsData.stats.totalRevenue || 0,
-          totalEstimatedRevenue: statsData.stats.totalEstimatedRevenue || 0,
-          totalEstimatedCommission: statsData.stats.totalEstimatedCommission || 0,
-          totalClicks: 0,
-          totalLeads: statsData.stats.totalReferrals || 0,
-          totalReferredCustomers: statsData.stats.approvedReferrals || 0,
-          totalAffiliates: statsData.stats.totalAffiliates || 0,
-          pendingReferrals: statsData.stats.pendingReferrals || 0
-        });
-      }
+      // Dummy data to mimic API response
+      const dummyStats = {
+        totalRevenue: 2500000, // ₹25,000.00
+        totalEstimatedRevenue: 3000000, // ₹30,000.00
+        totalEstimatedCommission: 600000, // ₹6,000.00
+        totalReferrals: 45,
+        approvedReferrals: 25,
+        totalAffiliates: 12,
+        pendingReferrals: 8
+      };
 
-      if (analyticsData.success && analyticsData.analytics.topAffiliates) {
-        setTopAffiliates(analyticsData.analytics.topAffiliates.slice(0, 5));
-      }
+      setStats({
+        totalRevenue: dummyStats.totalRevenue,
+        totalEstimatedRevenue: dummyStats.totalEstimatedRevenue,
+        totalEstimatedCommission: dummyStats.totalEstimatedCommission,
+        totalClicks: 120,
+        totalLeads: dummyStats.totalReferrals,
+        totalReferredCustomers: dummyStats.approvedReferrals,
+        totalAffiliates: dummyStats.totalAffiliates,
+        pendingReferrals: dummyStats.pendingReferrals
+      });
 
-      if (referralsData.success) {
-        const recent = referralsData.referrals.slice(0, 10).map((ref: any) => ({
-          id: ref.id,
-          leadName: ref.leadName,
-          leadEmail: ref.leadEmail,
-          affiliateName: ref.affiliate.name,
-          amountPaid: 0,
-          status: ref.status,
-          createdAt: ref.createdAt
-        }));
-        setRecentCustomers(recent);
-      }
+      // Dummy top affiliates
+      setTopAffiliates([
+        { id: '1', name: 'John Doe', email: 'john@example.com', referralCode: 'JOHN-123', totalRevenue: 500000, totalReferrals: 10 },
+        { id: '2', name: 'Jane Smith', email: 'jane@example.com', referralCode: 'JANE-456', totalRevenue: 350000, totalReferrals: 8 },
+        { id: '3', name: 'Bob Johnson', email: 'bob@example.com', referralCode: 'BOB-789', totalRevenue: 280000, totalReferrals: 6 }
+      ]);
+
+      // Dummy recent customers
+      setRecentCustomers([
+        { id: '1', leadName: 'Customer One', leadEmail: 'customer1@example.com', affiliateName: 'John Doe', amountPaid: 100000, status: 'APPROVED', createdAt: new Date().toISOString() },
+        { id: '2', leadName: 'Customer Two', leadEmail: 'customer2@example.com', affiliateName: 'Jane Smith', amountPaid: 75000, status: 'APPROVED', createdAt: new Date(Date.now() - 86400000).toISOString() }
+      ]);
     } catch (error) {
       console.error('Failed to fetch dashboard data:', error);
     }
   };
-
-  if (loading) {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30">
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          className="text-center"
-        >
-          <div className="relative">
-            <div className="w-16 h-16 border-4 border-indigo-100 rounded-full"></div>
-            <div className="absolute inset-0 w-16 h-16 border-4 border-transparent border-t-indigo-600 rounded-full animate-spin"></div>
-          </div>
-          <motion.p
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            transition={{ delay: 0.2 }}
-            className="mt-6 text-gray-600 font-medium"
-          >
-            Loading your dashboard...
-          </motion.p>
-        </motion.div>
-      </div>
-    );
-  }
-
-  if (!user || user.role !== 'ADMIN') {
-    return (
-      <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-50 via-indigo-50/30 to-purple-50/30">
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="text-center bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-100/80"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            animate={{ scale: 1 }}
-            transition={{ type: 'spring', stiffness: 200, delay: 0.1 }}
-            className="w-20 h-20 bg-gradient-to-br from-red-100 to-rose-100 rounded-2xl flex items-center justify-center mx-auto mb-6 shadow-lg"
-          >
-            <span className="text-4xl">🔒</span>
-          </motion.div>
-          <h1 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 mb-3">Access Denied</h1>
-          <p className="text-gray-500">You need admin privileges to access this page</p>
-          <motion.a
-            whileHover={{ scale: 1.02 }}
-            whileTap={{ scale: 0.98 }}
-            href="/login"
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-xl font-semibold shadow-lg shadow-indigo-500/30 hover:shadow-xl transition-shadow"
-          >
-            Go to Login
-          </motion.a>
-        </motion.div>
-      </div>
-    );
-  }
-
+  
   return (
     <div className="min-h-screen bg-gradient-to-br from-slate-50 via-indigo-50/20 to-purple-50/20">
       {/* Modern Sidebar */}
@@ -6496,20 +6442,20 @@ export default function AdminDashboard() {
           className="p-4 border-t border-gray-100/80"
         >
           <div className="flex items-center gap-3 p-3 rounded-2xl bg-gray-50/80 hover:bg-gray-100/80 transition-all cursor-pointer group">
-            {user.profilePicture ? (
-              <img
-                src={user.profilePicture}
-                alt="Profile"
-                className="w-11 h-11 rounded-xl object-cover border-2 border-white shadow-lg"
-              />
-            ) : (
-              <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/30">
-                {user.name?.charAt(0).toUpperCase()}
-              </div>
-            )}
+              {user?.profilePicture ? (
+                <img
+                  src={user.profilePicture}
+                  alt="Profile"
+                  className="w-11 h-11 rounded-xl object-cover border-2 border-white shadow-lg"
+                />
+              ) : (
+                <div className="w-11 h-11 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-lg shadow-indigo-500/30">
+                  {user?.name?.charAt(0).toUpperCase() || 'A'}
+                </div>
+              )}
             <div className="flex-1 min-w-0">
-              <div className="text-sm font-semibold text-gray-900 truncate">{user.name}</div>
-              <div className="text-xs text-gray-500 truncate">{user.email}</div>
+              <div className="text-sm font-semibold text-gray-900 truncate">{user?.name || 'Admin User'}</div>
+              <div className="text-xs text-gray-500 truncate">{user?.email || ''}</div>
             </div>
             <motion.button
               whileHover={{ scale: 1.1 }}
@@ -6536,7 +6482,7 @@ export default function AdminDashboard() {
         >
           <div>
             <h1 className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 via-gray-700 to-gray-600">
-              Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}, {user.name?.split(' ')[0]}! 
+              Good {new Date().getHours() < 12 ? 'morning' : new Date().getHours() < 18 ? 'afternoon' : 'evening'}, {user?.name?.split(' ')[0] || 'Admin'}! 
               <motion.span 
                 animate={{ rotate: [0, 15, -15, 0] }}
                 transition={{ repeat: Infinity, duration: 2, repeatDelay: 3 }}

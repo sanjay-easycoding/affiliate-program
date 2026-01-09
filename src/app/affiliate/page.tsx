@@ -108,13 +108,29 @@ function DashboardPage({ stats, referrals }: { stats: AffiliateStats | null; ref
             </p>
             <button
               onClick={async () => {
+                // API call commented out - simulating success
+                // try {
+                //   const response = await fetch('/api/affiliate/generate-code', { method: 'POST' });
+                //   const data = await response.json();
+                //   if (data.success) {
+                //     window.location.reload();
+                //   } else {
+                //     alert('Failed to generate code: ' + data.error);
+                //   }
+                // } catch (error) {
+                //   console.error('Failed to generate code:', error);
+                //   alert('Failed to generate code. Please try again.');
+                // }
+
+                // Simulate successful code generation
                 try {
-                  const response = await fetch('/api/affiliate/generate-code', { method: 'POST' });
-                  const data = await response.json();
-                  if (data.success) {
-                    window.location.reload();
-                  } else {
-                    alert('Failed to generate code: ' + data.error);
+                  const newCode = 'AFF-' + Math.random().toString(36).substr(2, 6).toUpperCase();
+                  if (stats) {
+                    setStats({
+                      ...stats,
+                      referralCode: newCode,
+                      referralLink: `${typeof window !== 'undefined' ? window.location.origin : ''}/r/${newCode}`,
+                    });
                   }
                 } catch (error) {
                   console.error('Failed to generate code:', error);
@@ -582,37 +598,87 @@ export default function AffiliateDashboard() {
   const loadDashboardData = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/affiliate/profile');
-      const data = await response.json();
       
-      if (data.success) {
-        setStats({
-          totalEarnings: data.affiliate?.balanceCents || 0,
-          totalClicks: 0,
-          totalLeads: data.referrals?.length || 0,
-          totalReferredCustomers: data.referrals?.filter((r: any) => r.status === 'APPROVED').length || 0,
-          referralLink: `${window.location.origin}/r/${data.affiliate?.referralCode}`,
-          referralCode: data.affiliate?.referralCode || '',
-        });
-        setReferrals(data.referrals || []);
-        
-        // Load user settings
-        setSettingsForm({
-          name: user?.name || '',
-          company: '',
-          email: user?.email || '',
-          country: 'India',
-          paymentMethod: 'PayPal',
-          paymentEmail: user?.email || '',
-        });
-      }
+      // API call commented out - using dummy data
+      // const response = await fetch('/api/affiliate/profile');
+      // const data = await response.json();
       
-      // Load payouts
-      const payoutsRes = await fetch('/api/affiliate/payouts');
-      if (payoutsRes.ok) {
-        const payoutsData = await payoutsRes.json();
-        setPayouts(payoutsData.payouts || []);
-      }
+      // Dummy data to mimic API response
+      const dummyData = {
+        success: true,
+        affiliate: {
+          balanceCents: 50000, // ₹500.00
+          referralCode: 'AFF-' + Math.random().toString(36).substr(2, 6).toUpperCase(),
+        },
+        referrals: [
+          {
+            id: '1',
+            leadName: 'John Doe',
+            leadEmail: 'john@example.com',
+            company: 'Example Corp',
+            estimatedValue: 10000,
+            status: 'APPROVED',
+            createdAt: new Date().toISOString(),
+            amountPaid: 2000,
+            commission: 2000,
+          },
+          {
+            id: '2',
+            leadName: 'Jane Smith',
+            leadEmail: 'jane@example.com',
+            estimatedValue: 5000,
+            status: 'PENDING',
+            createdAt: new Date(Date.now() - 86400000).toISOString(),
+          }
+        ]
+      };
+      
+      // Use dummy data
+      setStats({
+        totalEarnings: dummyData.affiliate?.balanceCents || 0,
+        totalClicks: 42,
+        totalLeads: dummyData.referrals?.length || 0,
+        totalReferredCustomers: dummyData.referrals?.filter((r: any) => r.status === 'APPROVED').length || 0,
+        referralLink: `${typeof window !== 'undefined' ? window.location.origin : ''}/r/${dummyData.affiliate?.referralCode}`,
+        referralCode: dummyData.affiliate?.referralCode || '',
+      });
+      setReferrals(dummyData.referrals || []);
+      
+      // Load user settings
+      setSettingsForm({
+        name: user?.name || '',
+        company: '',
+        email: user?.email || '',
+        country: 'India',
+        paymentMethod: 'PayPal',
+        paymentEmail: user?.email || '',
+      });
+      
+      // API call commented out - using dummy payouts
+      // const payoutsRes = await fetch('/api/affiliate/payouts');
+      // if (payoutsRes.ok) {
+      //   const payoutsData = await payoutsRes.json();
+      //   setPayouts(payoutsData.payouts || []);
+      // }
+      
+      // Dummy payouts data
+      setPayouts([
+        {
+          id: '1',
+          amount: 20000,
+          status: 'COMPLETED',
+          method: 'PayPal',
+          createdAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+          paidAt: new Date(Date.now() - 30 * 24 * 60 * 60 * 1000).toISOString(),
+        },
+        {
+          id: '2',
+          amount: 10000,
+          status: 'PENDING',
+          method: 'Bank Transfer',
+          createdAt: new Date().toISOString(),
+        }
+      ]);
     } catch (error) {
       console.error('Failed to load dashboard data:', error);
     } finally {
@@ -623,26 +689,56 @@ export default function AffiliateDashboard() {
   const handleSubmitLead = async (e: React.FormEvent) => {
     e.preventDefault();
     
-    try {
-      const response = await fetch('/api/affiliate/referrals', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          lead_name: submitForm.leadName,
-          lead_email: submitForm.leadEmail,
-          estimated_value: submitForm.estimatedValue,
-        }),
-      });
+    // API call commented out - simulating success
+    // try {
+    //   const response = await fetch('/api/affiliate/referrals', {
+    //     method: 'POST',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify({
+    //       lead_name: submitForm.leadName,
+    //       lead_email: submitForm.leadEmail,
+    //       estimated_value: submitForm.estimatedValue,
+    //     }),
+    //   });
 
-      const data = await response.json();
+    //   const data = await response.json();
       
-      if (data.success) {
-        setNotification({ type: 'success', message: 'Lead submitted successfully! Waiting for admin approval.' });
-        setShowSubmitModal(false);
-        setSubmitForm({ leadName: '', leadEmail: '', estimatedValue: '0' });
-        loadDashboardData();
-      } else {
-        setNotification({ type: 'error', message: data.error || 'Failed to submit lead' });
+    //   if (data.success) {
+    //     setNotification({ type: 'success', message: 'Lead submitted successfully! Waiting for admin approval.' });
+    //     setShowSubmitModal(false);
+    //     setSubmitForm({ leadName: '', leadEmail: '', estimatedValue: '0' });
+    //     loadDashboardData();
+    //   } else {
+    //     setNotification({ type: 'error', message: data.error || 'Failed to submit lead' });
+    //   }
+    // } catch (error) {
+    //   setNotification({ type: 'error', message: 'An error occurred while submitting lead' });
+    // }
+
+    // Simulate successful lead submission
+    try {
+      // Add dummy referral to the list
+      const newReferral: Referral = {
+        id: Date.now().toString(),
+        leadName: submitForm.leadName,
+        leadEmail: submitForm.leadEmail,
+        company: '',
+        estimatedValue: Number(submitForm.estimatedValue),
+        status: 'PENDING',
+        createdAt: new Date().toISOString(),
+      };
+      setReferrals([...referrals, newReferral]);
+      
+      setNotification({ type: 'success', message: 'Lead submitted successfully! Waiting for admin approval.' });
+      setShowSubmitModal(false);
+      setSubmitForm({ leadName: '', leadEmail: '', estimatedValue: '0' });
+      
+      // Update stats
+      if (stats) {
+        setStats({
+          ...stats,
+          totalLeads: stats.totalLeads + 1,
+        });
       }
     } catch (error) {
       setNotification({ type: 'error', message: 'An error occurred while submitting lead' });
@@ -652,18 +748,27 @@ export default function AffiliateDashboard() {
   };
 
   const handleUpdateSettings = async (field: string) => {
-    try {
-      const response = await fetch('/api/affiliate/profile', {
-        method: 'PUT',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(settingsForm),
-      });
+    // API call commented out - simulating success
+    // try {
+    //   const response = await fetch('/api/affiliate/profile', {
+    //     method: 'PUT',
+    //     headers: { 'Content-Type': 'application/json' },
+    //     body: JSON.stringify(settingsForm),
+    //   });
 
-      if (response.ok) {
-        setNotification({ type: 'success', message: `${field} updated successfully!` });
-      } else {
-        setNotification({ type: 'error', message: `Failed to update ${field}` });
-      }
+    //   if (response.ok) {
+    //     setNotification({ type: 'success', message: `${field} updated successfully!` });
+    //   } else {
+    //     setNotification({ type: 'error', message: `Failed to update ${field}` });
+    //   }
+    // } catch (error) {
+    //   setNotification({ type: 'error', message: 'An error occurred' });
+    // }
+
+    // Simulate successful settings update
+    try {
+      setNotification({ type: 'success', message: `${field} updated successfully!` });
+      // Settings are already stored in state, no need to update anything
     } catch (error) {
       setNotification({ type: 'error', message: 'An error occurred' });
     }

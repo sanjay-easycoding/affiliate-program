@@ -22,28 +22,36 @@ export default function LoginPage() {
     setError('');
     setMessage('');
 
-    try {
-      const response = await fetch('/api/auth/send-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email }),
-      });
+    // API call commented out - allowing login with any email
+    // try {
+    //   const response = await fetch('/api/auth/send-otp', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ email }),
+    //   });
 
-      const data = await response.json();
+    //   const data = await response.json();
 
-      if (data.success) {
-        setStep('otp');
-        setMessage(data.message);
-      } else {
-        setError(data.error);
-      }
-    } catch (err) {
-      setError('Failed to send OTP. Please try again.');
-    } finally {
+    //   if (data.success) {
+    //     setStep('otp');
+    //     setMessage(data.message);
+    //   } else {
+    //     setError(data.error);
+    //   }
+    // } catch (err) {
+    //   setError('Failed to send OTP. Please try again.');
+    // } finally {
+    //   setLoading(false);
+    // }
+
+    // Simulate sending OTP - proceed directly to OTP step
+    setTimeout(() => {
+      setStep('otp');
+      setMessage('Verification code sent to your email');
       setLoading(false);
-    }
+    }, 500);
   };
 
   const handleVerifyOTP = async (e: React.FormEvent) => {
@@ -54,32 +62,79 @@ export default function LoginPage() {
     setError('');
     setMessage('');
 
-    try {
-      const response = await fetch('/api/auth/verify-otp', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({ email, code: otp }),
-      });
+    // API call commented out - allowing login with any email and OTP
+    // try {
+    //   const response = await fetch('/api/auth/verify-otp', {
+    //     method: 'POST',
+    //     headers: {
+    //       'Content-Type': 'application/json',
+    //     },
+    //     body: JSON.stringify({ email, code: otp }),
+    //   });
 
-      const data = await response.json();
+    //   const data = await response.json();
 
-      if (data.success) {
-        setMessage('Login successful! Redirecting...');
-        if (data.user.role === 'ADMIN') {
-          router.push('/admin');
-        } else {
-          router.push('/affiliate');
-        }
-      } else {
-        setError(data.error);
+    //   if (data.success) {
+    //     setMessage('Login successful! Redirecting...');
+    //     if (data.user.role === 'ADMIN') {
+    //       router.push('/admin');
+    //     } else {
+    //       router.push('/affiliate');
+    //     }
+    //   } else {
+    //     setError(data.error);
+    //   }
+    // } catch (err) {
+    //   setError('Failed to verify OTP. Please try again.');
+    // } finally {
+    //   setLoading(false);
+    // }
+
+    // Simulate OTP verification - allow any OTP to login
+    setTimeout(() => {
+      setMessage('Login successful! Redirecting...');
+      
+      // Determine user role based on specific email addresses
+      const normalizedEmail = email.toLowerCase().trim();
+      const isAdmin = normalizedEmail === 'admin@easy-coding.io';
+      const role = isAdmin ? 'ADMIN' : 'AFFILIATE';
+      
+      // Generate dummy access and refresh tokens
+      const accessToken = `dummy_access_token_${Date.now()}_${Math.random().toString(36).substr(2, 16)}`;
+      const refreshToken = `dummy_refresh_token_${Date.now()}_${Math.random().toString(36).substr(2, 16)}`;
+      
+      // Create dummy user data
+      const userData = {
+        id: `user_${Date.now()}`,
+        email: email,
+        name: isAdmin ? 'Admin User' : 'Affiliate User',
+        role: role, // Store as uppercase: 'ADMIN' or 'AFFILIATE'
+        status: 'active',
+        created_at: new Date().toISOString(),
+        hasAffiliate: !isAdmin
+      };
+      
+      // Store tokens and user data in localStorage (mimicking original auth flow)
+      if (typeof window !== 'undefined') {
+        localStorage.setItem('access_token', accessToken);
+        localStorage.setItem('refresh_token', refreshToken);
+        localStorage.setItem('auth_token', accessToken); // For backward compatibility
+        localStorage.setItem('user_data', JSON.stringify(userData));
+        localStorage.setItem('affiliate_platform_session', JSON.stringify({
+          user: userData,
+          token: accessToken,
+          expiresAt: new Date(Date.now() + 24 * 60 * 60 * 1000).toISOString() // 24 hours from now
+        }));
       }
-    } catch (err) {
-      setError('Failed to verify OTP. Please try again.');
-    } finally {
+      
+      // Redirect based on role
+      if (isAdmin) {
+        router.push('/admin');
+      } else {
+        router.push('/affiliate');
+      }
       setLoading(false);
-    }
+    }, 500);
   };
 
   const handleBackToEmail = () => {
