@@ -145,32 +145,52 @@ export default function LoginPage() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-slate-900 via-purple-900 to-slate-900 relative overflow-hidden">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-[#18323d] to-[#234354] relative overflow-hidden">
       {/* Animated Background Elements */}
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute -top-40 -right-40 w-80 h-80 bg-purple-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
-        <div className="absolute -bottom-40 -left-40 w-80 h-80 bg-indigo-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
-        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 bg-pink-500 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
+        <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob"></div>
+        <div className="absolute -bottom-40 -left-40 w-80 h-80 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-2000"></div>
+        <div className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-80 h-80 rounded-full mix-blend-multiply filter blur-3xl opacity-20 animate-blob animation-delay-4000"></div>
       </div>
 
       {/* Grid Pattern Overlay */}
-      <div className="absolute inset-0 bg-[url('data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iNjAiIGhlaWdodD0iNjAiIHZpZXdCb3g9IjAgMCA2MCA2MCIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj48ZyBmaWxsPSJub25lIiBmaWxsLXJ1bGU9ImV2ZW5vZGQiPjxnIGZpbGw9IiNmZmYiIGZpbGwtb3BhY2l0eT0iMC4wMyI+PHBhdGggZD0iTTM2IDM0aDR2NGgtNHptMC0xMGg0djRoLTR6bTEwIDEwaDR2NGgtNHptLTIwIDBoNHY0aC00em0xMC0yMGg0djRoLTR6bTEwIDBoNHY0aC00em0tMTAgMTBoNHY0aC00em0tMTAgMGg0djRoLTR6bTAtMTBoNHY0aC00eiIvPjwvZz48L2c+PC9zdmc+')] opacity-40"></div>
+      <div className="absolute inset-0 opacity-40"></div>
 
       <motion.div
         initial={{ opacity: 0, y: 20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="w-full max-w-md px-8 relative z-10"
+        className="w-full max-w-6xl px-8 relative z-10"
       >
-        {/* Glass Card */}
-        <div className="backdrop-blur-xl bg-white/10 rounded-3xl border border-white/20 shadow-2xl p-8">
-          {/* Logo */}
-          <motion.div 
-            initial={{ scale: 0.8 }}
-            animate={{ scale: 1 }}
-            transition={{ duration: 0.5, delay: 0.1 }}
-            className="text-center mb-8"
-          >
+        {/* Glass Card with Two Columns */}
+        <div className="backdrop-blur-xl bg-[#18323d] rounded-[14px] border border-white/20 shadow-2xl overflow-hidden grid grid-cols-1 lg:grid-cols-2 min-h-[600px]">
+          {/* First Column - Image Section */}
+          <div className="hidden lg:flex items-center justify-center p-12 bg-[#234354]">
+            <motion.div
+              initial={{ opacity: 0, x: -20 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ duration: 0.5 }}
+              className="text-center"
+            >
+              <div className="inline-flex items-center justify-center mb-6">
+                <div className="w-20 h-20 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30">
+                  <span className="text-5xl">⚡</span>
+                </div>
+              </div>
+              <h2 className="text-4xl font-bold text-white mb-3">Refferq</h2>
+              <p className="text-white/70 text-lg">Affiliate Marketing Platform</p>
+            </motion.div>
+          </div>
+
+          {/* Second Column - Login Form */}
+          <div className="p-8">
+            {/* Logo */}
+            <motion.div 
+              initial={{ scale: 0.8 }}
+              animate={{ scale: 1 }}
+              transition={{ duration: 0.5, delay: 0.1 }}
+              className="text-center mb-8 lg:hidden"
+            >
             <div className="inline-flex items-center justify-center mb-4">
               <div className="w-14 h-14 bg-gradient-to-br from-emerald-400 via-green-500 to-teal-600 rounded-2xl flex items-center justify-center shadow-lg shadow-green-500/30 transform rotate-3 hover:rotate-0 transition-transform duration-300">
                 <span className="text-3xl">⚡</span>
@@ -402,10 +422,8 @@ export default function LoginPage() {
               <a href="#" className="text-white/50 hover:text-white/70 underline">Privacy Policy</a>
             </p>
           </div>
+          </div>
         </div>
-
-        {/* Bottom Glow */}
-        <div className="absolute -bottom-20 left-1/2 transform -translate-x-1/2 w-3/4 h-20 bg-emerald-500/20 blur-3xl rounded-full"></div>
       </motion.div>
     </div>
   );
