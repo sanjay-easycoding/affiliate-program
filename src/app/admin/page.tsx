@@ -2311,19 +2311,54 @@ function ProgramSettingsPage() {
       };
       
       if (data.success && data.settings) {
-        setSettings(data.settings);
+        // Type the settings as Partial to allow missing fields
+        const partialSettings = data.settings as Partial<ProgramSettings>;
+        // Merge API response with default values for all required fields
+        const completeSettings: ProgramSettings = {
+          id: partialSettings.id || '',
+          programId: partialSettings.programId || '',
+          productName: partialSettings.productName || 'Refferq',
+          programName: partialSettings.programName || 'Refferq Affiliate Program',
+          websiteUrl: partialSettings.websiteUrl || 'https://refferq.com',
+          currency: partialSettings.currency || 'INR',
+          blockedCountries: partialSettings.blockedCountries || [],
+          portalSubdomain: partialSettings.portalSubdomain || 'app.refferq.com',
+          termsOfService: partialSettings.termsOfService || '',
+          minimumPayoutThreshold: partialSettings.minimumPayoutThreshold || 0,
+          payoutTerm: partialSettings.payoutTerm || 'NET-15',
+          payoutMethods: partialSettings.payoutMethods || ['PayPal'],
+          brandBackgroundColor: partialSettings.brandBackgroundColor || '#ffffff',
+          brandButtonColor: partialSettings.brandButtonColor || '#18323d',
+          brandTextColor: partialSettings.brandTextColor || '#000000',
+          companyLogo: partialSettings.companyLogo || '',
+          favicon: partialSettings.favicon || '',
+          cookieDuration: partialSettings.cookieDuration || 30,
+          urlParameters: partialSettings.urlParameters || [],
+          hideCustomerEmails: partialSettings.hideCustomerEmails ?? false,
+          disablePersonalizedLinks: partialSettings.disablePersonalizedLinks ?? false,
+          blockKeywords: partialSettings.blockKeywords || [],
+          blockSocialMediaAds: partialSettings.blockSocialMediaAds || [],
+          allowManualLeadSubmission: partialSettings.allowManualLeadSubmission ?? false,
+          programWideCouponCode: partialSettings.programWideCouponCode || '',
+          hidePartnerLinks: partialSettings.hidePartnerLinks ?? false,
+          requireBusinessEmail: partialSettings.requireBusinessEmail ?? false,
+          enablePostbacks: partialSettings.enablePostbacks ?? false,
+          createdAt: partialSettings.createdAt || new Date().toISOString(),
+          updatedAt: partialSettings.updatedAt || new Date().toISOString()
+        };
+        setSettings(completeSettings);
         // Update forms with fetched data
         setGeneralForm({
-          productName: data.settings.productName || 'Refferq',
-          programName: data.settings.programName || "Refferq Affiliate Program",
-          websiteUrl: data.settings.websiteUrl || 'https://refferq.com',
-          currency: data.settings.currency || 'INR',
-          blockedCountries: data.settings.blockedCountries || [],
-          portalSubdomain: data.settings.portalSubdomain || 'app.refferq.com',
-          termsOfService: data.settings.termsOfService || '',
-          minimumPayoutThreshold: data.settings.minimumPayoutThreshold || 0,
-          payoutTerm: data.settings.payoutTerm || 'NET-15',
-          payoutMethods: data.settings.payoutMethods || ['PayPal']
+          productName: partialSettings.productName || 'Refferq',
+          programName: partialSettings.programName || "Refferq Affiliate Program",
+          websiteUrl: partialSettings.websiteUrl || 'https://refferq.com',
+          currency: partialSettings.currency || 'INR',
+          blockedCountries: partialSettings.blockedCountries || [],
+          portalSubdomain: partialSettings.portalSubdomain || 'app.refferq.com',
+          termsOfService: partialSettings.termsOfService || '',
+          minimumPayoutThreshold: partialSettings.minimumPayoutThreshold || 0,
+          payoutTerm: partialSettings.payoutTerm || 'NET-15',
+          payoutMethods: partialSettings.payoutMethods || ['PayPal']
         });
       }
     } catch (error) {
@@ -3297,7 +3332,7 @@ function PayoutsPage() {
       
       // Dummy payouts data
       const dummyPayouts: Payout[] = [
-        { id: '1', partnerId: 'u1', partnerName: 'John Doe', partnerEmail: 'john@example.com', method: 'PayPal', commissionPeriodStart: new Date().toISOString(), commissionPeriodEnd: new Date().toISOString(), amountCents: 100000, status: 'PENDING', createdAt: new Date().toISOString(), processedAt: null },
+        { id: '1', partnerId: 'u1', partnerName: 'John Doe', partnerEmail: 'john@example.com', method: 'PayPal', commissionPeriodStart: new Date().toISOString(), commissionPeriodEnd: new Date().toISOString(), amountCents: 100000, status: 'PENDING', createdAt: new Date().toISOString() },
         { id: '2', partnerId: 'u2', partnerName: 'Jane Smith', partnerEmail: 'jane@example.com', method: 'Bank Transfer', commissionPeriodStart: new Date(Date.now() - 86400000).toISOString(), commissionPeriodEnd: new Date(Date.now() - 86400000).toISOString(), amountCents: 75000, status: 'COMPLETED', createdAt: new Date(Date.now() - 86400000).toISOString(), processedAt: new Date(Date.now() - 86400000).toISOString() }
       ];
       

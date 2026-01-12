@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBullseye } from 'react-icons/fa';
@@ -45,7 +45,7 @@ interface Payout {
 }
 
 // Dashboard Page Component
-function DashboardPage({ stats, referrals }: { stats: AffiliateStats | null; referrals: Referral[] }) {
+function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats | null; referrals: Referral[]; setStats: React.Dispatch<React.SetStateAction<AffiliateStats | null>> }) {
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
   };
@@ -1078,7 +1078,7 @@ export default function AffiliateDashboard() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <DashboardPage stats={stats} referrals={referrals} />
+              <DashboardPage stats={stats} referrals={referrals} setStats={setStats} />
             </motion.div>
           )}
 

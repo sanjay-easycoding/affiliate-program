@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { jwtVerify } from 'jose';
-import { PrismaClient, UserStatus } from '@prisma/client';
+import { PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -73,7 +73,7 @@ export async function PATCH(
     const updatedUser = await prisma.user.update({
       where: { id: affiliate.userId },
       data: {
-        status: status as UserStatus
+        status: status as 'PENDING' | 'ACTIVE' | 'INACTIVE' | 'SUSPENDED'
       }
     });
 
