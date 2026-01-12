@@ -5,6 +5,13 @@ import { useAuth } from '@/hooks/useAuth';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaBullseye } from 'react-icons/fa';
 import {
+  HiCurrencyDollar,
+  HiChartBar,
+  HiCheckCircle,
+  HiCursorClick,
+  HiDocumentText
+} from 'react-icons/hi';
+import {
   RiDashboardLine,
   RiTeamLine,
   RiBookLine,
@@ -60,7 +67,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Earnings</span>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-              <span className="text-white">💰</span>
+              <HiCurrencyDollar className="w-5 h-5 text-white" />
             </div>
           </div>
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
@@ -73,7 +80,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Clicks</span>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-              <span className="text-white">👆</span>
+              <HiCursorClick className="w-5 h-5 text-white" />
             </div>
           </div>
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">{stats?.totalClicks || 0}</p>
@@ -84,7 +91,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Leads</span>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-              <span className="text-white">📊</span>
+              <HiChartBar className="w-5 h-5 text-white" />
             </div>
           </div>
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">{stats?.totalLeads || 0}</p>
@@ -95,7 +102,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Customers</span>
             <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
-              <span className="text-white">✅</span>
+              <HiCheckCircle className="w-5 h-5 text-white" />
             </div>
           </div>
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">{stats?.totalReferredCustomers || 0}</p>
@@ -147,7 +154,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
                   alert('Failed to generate code. Please try again.');
                 }
               }}
-              className="px-6 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 font-medium transition-all duration-300"
+              className="px-6 py-3 bg-gradient-to-r from-[#18323d] to-[#234354] text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 font-medium transition-all duration-300"
             >
               Generate Referral Code
             </button>
@@ -165,7 +172,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
                 />
                 <button
                   onClick={() => copyToClipboard(stats?.referralLink || '')}
-                  className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 text-sm font-semibold transition-all duration-300"
+                  className="px-5 py-3 bg-gradient-to-r from-[#18323d] to-[#234354] text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 text-sm font-semibold transition-all duration-300"
                 >
                   Copy
                 </button>
@@ -182,7 +189,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
                 />
                 <button
                   onClick={() => copyToClipboard(stats?.referralCode || '')}
-                  className="px-5 py-3 bg-gradient-to-r from-emerald-500 to-teal-500 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 text-sm font-semibold transition-all duration-300"
+                  className="px-5 py-3 bg-gradient-to-r from-[#18323d] to-[#234354] text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 text-sm font-semibold transition-all duration-300"
                 >
                   Copy
                 </button>
@@ -198,7 +205,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
         {referrals.length === 0 ? (
           <div className="text-center py-10 text-gray-400">
             <div className="w-16 h-16 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-3xl">📋</span>
+              <HiDocumentText className="w-8 h-8 text-gray-400" />
             </div>
             <p className="font-medium">No referrals yet</p>
           </div>
@@ -297,7 +304,7 @@ function ReferralsPage({ referrals, onSubmitLead }: { referrals: Referral[]; onS
         {filteredReferrals.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
-              <span className="text-4xl">📋</span>
+              <HiDocumentText className="w-10 h-10 text-gray-400" />
             </div>
             <p className="text-gray-600 mb-2 font-medium text-lg">No referrals yet</p>
             <p className="text-gray-400 mb-6">Start submitting leads to earn commissions</p>
@@ -833,7 +840,7 @@ export default function AffiliateDashboard() {
             whileHover={{ scale: 1.02 }}
             whileTap={{ scale: 0.98 }}
             href="/login"
-            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl font-semibold shadow-lg shadow-emerald-500/30 hover:shadow-xl transition-shadow"
+            className="mt-6 inline-flex items-center gap-2 px-6 py-3 bg-gradient-to-r from-[#18323d] to-[#234354] text-white rounded-xl font-semibold shadow-lg shadow-blue-500/30 hover:shadow-xl transition-shadow"
           >
             Go to Login
           </motion.a>
@@ -1053,13 +1060,13 @@ export default function AffiliateDashboard() {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="bg-gradient-to-r from-emerald-500 via-teal-500 to-cyan-500 rounded-3xl p-6 mb-8 shadow-2xl shadow-emerald-500/20 overflow-hidden relative"
+          className="bg-gradient-to-r from-[#18323d] to-[#234354] rounded-3xl p-6 mb-8 shadow-2xl shadow-blue-500/20 overflow-hidden relative"
         >
           <div className="absolute -right-10 -top-10 w-40 h-40 bg-white/10 rounded-full blur-3xl"></div>
           <div className="absolute -left-10 -bottom-10 w-32 h-32 bg-white/10 rounded-full blur-2xl"></div>
           <div className="relative flex items-center gap-4 text-white">
             <div className="w-14 h-14 bg-white/20 rounded-2xl flex items-center justify-center backdrop-blur-sm">
-              <span className="text-3xl">💰</span>
+              <HiCurrencyDollar className="w-7 h-7 text-white" />
             </div>
             <div>
               <p className="text-white/80 text-sm font-medium">Earn 20% commission on all paid customers</p>
@@ -1225,7 +1232,7 @@ export default function AffiliateDashboard() {
 
               <button
                 type="submit"
-                className="w-full py-3.5 bg-gradient-to-r from-emerald-600 to-teal-600 text-white rounded-xl hover:shadow-lg hover:shadow-emerald-500/30 font-semibold transition-all duration-300"
+                className="w-full py-3.5 bg-gradient-to-r from-[#18323d] to-[#234354] text-white rounded-xl hover:shadow-lg hover:shadow-blue-500/30 font-semibold transition-all duration-300"
               >
                 Submit lead
               </button>
