@@ -2,7 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import { notificationService, NotificationData } from '@/lib/notifications';
-import { auth } from '@/lib/auth';
+// import { auth } from '@/lib/auth'; // Removed - using Express backend
 
 export default function NotificationCenter() {
   const [notifications, setNotifications] = useState<NotificationData[]>([]);
@@ -10,21 +10,23 @@ export default function NotificationCenter() {
   const [unreadCount, setUnreadCount] = useState(0);
 
   useEffect(() => {
-    const user = auth.getCurrentUser();
-    if (!user) return;
+    // TODO: Replace with Express backend auth
+    // const user = auth.getCurrentUser();
+    // if (!user) return;
 
-    const loadNotifications = () => {
-      const userNotifications = notificationService.getNotificationsForUser(user.id);
-      setNotifications(userNotifications);
-      setUnreadCount(notificationService.getUnreadCount(user.id));
-    };
+    // TODO: Replace with Express backend auth
+    // const loadNotifications = () => {
+    //   const userNotifications = notificationService.getNotificationsForUser(user.id);
+    //   setNotifications(userNotifications);
+    //   setUnreadCount(notificationService.getUnreadCount(user.id));
+    // };
 
-    loadNotifications();
+    // loadNotifications();
 
     // Poll for new notifications every 30 seconds
-    const interval = setInterval(loadNotifications, 30000);
+    // const interval = setInterval(loadNotifications, 30000);
 
-    return () => clearInterval(interval);
+    // return () => clearInterval(interval);
   }, []);
 
   const handleMarkAsRead = (notificationId: string) => {
@@ -36,10 +38,10 @@ export default function NotificationCenter() {
   };
 
   const handleMarkAllAsRead = () => {
-    const user = auth.getCurrentUser();
-    if (!user) return;
-
-    notificationService.markAllAsRead(user.id);
+    // TODO: Replace with Express backend auth
+    // const user = auth.getCurrentUser();
+    // if (!user) return;
+    // notificationService.markAllAsRead(user.id);
     setNotifications(prev => prev.map(n => ({ ...n, read: true })));
     setUnreadCount(0);
   };
