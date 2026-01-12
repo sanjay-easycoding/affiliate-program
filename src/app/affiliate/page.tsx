@@ -56,10 +56,10 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
 
       {/* Stats Grid */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 group">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Earnings</span>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-emerald-500 to-teal-500 flex items-center justify-center shadow-lg shadow-emerald-500/30 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
               <span className="text-white">💰</span>
             </div>
           </div>
@@ -69,10 +69,10 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <p className="text-xs text-gray-400 mt-2">Lifetime earnings</p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 group">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Clicks</span>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-blue-500 to-indigo-500 flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
               <span className="text-white">👆</span>
             </div>
           </div>
@@ -80,10 +80,10 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <p className="text-xs text-gray-400 mt-2">Link clicks</p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 group">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Total Leads</span>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-amber-500 to-orange-500 flex items-center justify-center shadow-lg shadow-amber-500/30 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
               <span className="text-white">📊</span>
             </div>
           </div>
@@ -91,10 +91,10 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
           <p className="text-xs text-gray-400 mt-2">Submitted leads</p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300 group">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300 group">
           <div className="flex items-center justify-between mb-3">
             <span className="text-sm text-gray-500 font-medium">Customers</span>
-            <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-purple-500 to-pink-500 flex items-center justify-center shadow-lg shadow-purple-500/30 group-hover:scale-110 transition-transform">
+            <div className="w-10 h-10 rounded-xl bg-gradient-to-r from-[#18323d] to-[#234354] flex items-center justify-center shadow-lg shadow-blue-500/30 group-hover:scale-110 transition-transform">
               <span className="text-white">✅</span>
             </div>
           </div>
@@ -104,7 +104,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
       </div>
 
       {/* Links Section */}
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-5">Your Referral Links</h3>
         
         {!stats?.referralCode ? (
@@ -193,7 +193,7 @@ function DashboardPage({ stats, referrals, setStats }: { stats: AffiliateStats |
       </div>
 
       {/* Recent Referrals */}
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6">
         <h3 className="text-lg font-bold text-gray-900 mb-5">Recent Referrals</h3>
         {referrals.length === 0 ? (
           <div className="text-center py-10 text-gray-400">
@@ -293,7 +293,7 @@ function ReferralsPage({ referrals, onSubmitLead }: { referrals: Referral[]; onS
       </div>
 
       {/* Referrals Table */}
-      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6]">
         {filteredReferrals.length === 0 ? (
           <div className="text-center py-16">
             <div className="w-20 h-20 bg-gray-100 rounded-2xl flex items-center justify-center mx-auto mb-4">
@@ -369,28 +369,28 @@ function PayoutsPage({ stats, payouts }: { stats: AffiliateStats | null; payouts
 
       {/* Earnings Summary */}
       <div className="grid grid-cols-1 md:grid-cols-4 gap-5">
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300">
           <p className="text-sm text-gray-500 font-medium mb-2">Total Earned</p>
           <p className="text-3xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600">
             ₹{((stats?.totalEarnings || 0) / 100).toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300">
           <p className="text-sm text-gray-500 font-medium mb-2">Total Paid</p>
           <p className="text-3xl font-bold text-emerald-600">
             ₹{(totalPaid / 100).toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300">
           <p className="text-sm text-gray-500 font-medium mb-2">Pending</p>
           <p className="text-3xl font-bold text-amber-600">
             ₹{(pendingAmount / 100).toFixed(2)}
           </p>
         </div>
 
-        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-6 hover:shadow-xl transition-all duration-300">
+        <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-6 hover:shadow-xl transition-all duration-300">
           <p className="text-sm text-gray-600 mb-2">Next Payout</p>
           <p className="text-lg font-bold text-gray-900">Jan 1, 2026</p>
           <p className="text-xs text-gray-500 mt-1">Monthly cycle</p>
@@ -817,7 +817,7 @@ export default function AffiliateDashboard() {
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-center bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl shadow-gray-200/50 border border-gray-100/80"
+          className="text-center bg-white/80 backdrop-blur-xl p-10 rounded-3xl shadow-2xl shadow-gray-200/50 border border-[#e6e6e6]/80"
         >
           <motion.div
             initial={{ scale: 0 }}
@@ -1039,7 +1039,7 @@ export default function AffiliateDashboard() {
             <motion.button
               whileHover={{ scale: 1.05 }}
               whileTap={{ scale: 0.95 }}
-              className="relative p-3 text-gray-500 hover:text-emerald-600 bg-white hover:bg-emerald-50 rounded-xl transition-all shadow-sm border border-gray-100"
+              className="relative p-3 text-gray-500 hover:text-emerald-600 bg-white hover:bg-emerald-50 rounded-xl transition-all shadow-sm border border-[#e6e6e6]"
             >
               <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6.002 6.002 0 00-4-5.659V5a2 2 0 10-4 0v.341C7.67 6.165 6 8.388 6 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9" />
@@ -1137,7 +1137,7 @@ export default function AffiliateDashboard() {
               exit={{ opacity: 0, y: -20 }}
               transition={{ duration: 0.3 }}
             >
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-gray-100 p-8">
+              <div className="bg-white/80 backdrop-blur-sm rounded-2xl shadow-lg shadow-gray-200/50 border border-[#e6e6e6] p-8">
                 <h2 className="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-gray-900 to-gray-600 mb-4">
                   {activePage.charAt(0).toUpperCase() + activePage.slice(1)}
                 </h2>

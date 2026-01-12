@@ -97,12 +97,12 @@ export const MetricCard = ({
   delay?: number;
 }) => {
   const colorStyles = {
-    indigo: { bg: 'from-indigo-50 to-indigo-100', icon: 'from-indigo-500 to-purple-600', text: 'text-indigo-900' },
-    emerald: { bg: 'from-emerald-50 to-teal-100', icon: 'from-emerald-500 to-teal-600', text: 'text-emerald-900' },
-    amber: { bg: 'from-amber-50 to-orange-100', icon: 'from-amber-500 to-orange-600', text: 'text-amber-900' },
-    rose: { bg: 'from-rose-50 to-pink-100', icon: 'from-rose-500 to-pink-600', text: 'text-rose-900' },
-    purple: { bg: 'from-purple-50 to-violet-100', icon: 'from-purple-500 to-violet-600', text: 'text-purple-900' },
-    blue: { bg: 'from-blue-50 to-sky-100', icon: 'from-blue-500 to-sky-600', text: 'text-blue-900' }
+    indigo: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' },
+    emerald: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' },
+    amber: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' },
+    rose: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' },
+    purple: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' },
+    blue: { bg: 'from-slate-50 via-blue-50/30 to-indigo-50/20', icon: 'from-[#18323d] to-[#234354]', text: 'text-indigo-900' }
   };
 
   const style = colorStyles[color];
@@ -113,7 +113,7 @@ export const MetricCard = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ delay }}
       whileHover={{ y: -4, scale: 1.02 }}
-      className={`bg-gradient-to-br ${style.bg} rounded-2xl p-5 border border-white/50`}
+      className={`bg-gradient-to-br ${style.bg} rounded-2xl p-5 border border-[#e6e6e6]`}
     >
       <div className="flex items-start justify-between mb-3">
         <span className="text-sm font-medium text-gray-600">{label}</span>
@@ -262,10 +262,10 @@ export const ActionCard = ({
   color?: 'indigo' | 'emerald' | 'amber' | 'rose';
 }) => {
   const colorStyles = {
-    indigo: 'from-indigo-500 to-purple-600 shadow-indigo-500/30',
-    emerald: 'from-emerald-500 to-teal-600 shadow-emerald-500/30',
-    amber: 'from-amber-500 to-orange-600 shadow-amber-500/30',
-    rose: 'from-rose-500 to-pink-600 shadow-rose-500/30'
+    indigo: 'from-[#18323d] to-[#234354] shadow-blue-500/30',
+    emerald: 'from-[#18323d] to-[#234354] shadow-blue-500/30',
+    amber: 'from-[#18323d] to-[#234354] shadow-blue-500/30',
+    rose: 'from-[#18323d] to-[#234354] shadow-blue-500/30'
   };
 
   return (
@@ -273,7 +273,7 @@ export const ActionCard = ({
       whileHover={{ scale: 1.02, y: -4 }}
       whileTap={{ scale: 0.98 }}
       onClick={onClick}
-      className="w-full text-left p-6 bg-white rounded-2xl border border-gray-100 shadow-lg hover:shadow-xl transition-all group"
+      className="w-full text-left p-6 bg-white rounded-2xl border border-[#e6e6e6] shadow-lg hover:shadow-xl transition-all group"
     >
       <div className={`w-14 h-14 rounded-2xl bg-gradient-to-br ${colorStyles[color]} flex items-center justify-center text-white text-2xl mb-4 shadow-lg group-hover:scale-110 transition-transform`}>
         {icon}

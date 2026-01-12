@@ -12,9 +12,11 @@ import {
   HiCog,
   HiChartBar,
   HiCurrencyDollar,
-  HiStar
+  HiStar,
+  HiClock,
+  HiLightningBolt
 } from 'react-icons/hi';
-import { FaBullseye, FaWrench } from 'react-icons/fa';
+import { FaBullseye, FaWrench, FaGem } from 'react-icons/fa';
 import {
   RiDashboardLine,
   RiTeamLine,
@@ -6612,41 +6614,41 @@ export default function AdminDashboard() {
               <StatsCard
                 title="Total Revenue"
                 value={`₹${stats ? (stats.totalEstimatedRevenue / 100).toFixed(2) : '0.00'}`}
-                icon="💰"
+                icon={<HiCurrencyDollar className="w-7 h-7" />}
                 trend="up"
                 trendValue="+12%"
-                gradient="from-emerald-500 to-teal-600"
-                lightGradient="from-emerald-50 to-teal-50"
-                iconBg="from-emerald-500 to-teal-600"
+                gradient="from-slate-500 via-blue-500 to-indigo-500"
+                lightGradient="from-slate-50 via-blue-50/30 to-indigo-50/20"
+                iconBg="from-[#18323d] to-[#234354]"
                 delay={0.1}
               />
               <StatsCard
                 title="Actual Revenue"
                 value={`₹${stats ? (stats.totalRevenue / 100).toFixed(2) : '0.00'}`}
-                icon="💵"
-                gradient="from-blue-500 to-cyan-600"
-                lightGradient="from-blue-50 to-cyan-50"
-                iconBg="from-blue-500 to-cyan-600"
+                icon={<RiMoneyDollarCircleLine className="w-7 h-7" />}
+                gradient="from-slate-500 via-blue-500 to-indigo-500"
+                lightGradient="from-slate-50 via-blue-50/30 to-indigo-50/20"
+                iconBg="from-[#18323d] to-[#234354]"
                 delay={0.2}
               />
               <StatsCard
                 title="Commission Owed"
                 value={`₹${stats ? (stats.totalEstimatedCommission / 100).toFixed(2) : '0.00'}`}
-                icon="💎"
-                gradient="from-purple-500 to-pink-600"
-                lightGradient="from-purple-50 to-pink-50"
-                iconBg="from-purple-500 to-pink-600"
+                icon={<FaGem className="w-7 h-7" />}
+                gradient="from-slate-500 via-blue-500 to-indigo-500"
+                lightGradient="from-slate-50 via-blue-50/30 to-indigo-50/20"
+                iconBg="from-[#18323d] to-[#234354]"
                 delay={0.3}
               />
               <StatsCard
                 title="Total Partners"
                 value={stats?.totalAffiliates || 0}
-                icon="👥"
+                icon={<HiUsers className="w-7 h-7" />}
                 trend="up"
                 trendValue="+5"
-                gradient="from-indigo-500 to-purple-600"
-                lightGradient="from-indigo-50 to-purple-50"
-                iconBg="from-indigo-500 to-purple-600"
+                gradient="from-slate-500 via-blue-500 to-indigo-500"
+                lightGradient="from-slate-50 via-blue-50/30 to-indigo-50/20"
+                iconBg="from-[#18323d] to-[#234354]"
                 delay={0.4}
               />
             </div>
@@ -6656,22 +6658,22 @@ export default function AdminDashboard() {
               <MetricCard
                 label="Pending Leads"
                 value={stats?.pendingReferrals || 0}
-                icon="⏳"
-                color="amber"
+                icon={<HiClock className="w-5 h-5" />}
+                color="indigo"
                 delay={0.5}
               />
               <MetricCard
                 label="Total Leads"
                 value={stats?.totalLeads || 0}
-                icon="📊"
+                icon={<HiChartBar className="w-5 h-5" />}
                 color="blue"
                 delay={0.6}
               />
               <MetricCard
                 label="Referred Customers"
                 value={stats?.totalReferredCustomers || 0}
-                icon="🎯"
-                color="emerald"
+                icon={<FaBullseye className="w-5 h-5" />}
+                color="indigo"
                 delay={0.7}
               />
             </div>
@@ -6683,35 +6685,35 @@ export default function AdminDashboard() {
               transition={{ delay: 0.5 }}
               className="mb-8"
             >
-              <SectionHeader title="Quick Actions" icon="⚡" />
+              <SectionHeader title="Quick Actions" icon={<HiLightningBolt className="w-5 h-5" />} />
               <div className="grid grid-cols-4 gap-4">
                 <ActionCard
                   title="View Partners"
                   description="Manage your affiliate partners"
-                  icon="👥"
+                  icon={<HiUsers className="w-6 h-6" />}
                   onClick={() => setActivePage('partners')}
                   color="indigo"
                 />
                 <ActionCard
                   title="View Customers"
                   description="See referred customers"
-                  icon="👤"
+                  icon={<HiUser className="w-6 h-6" />}
                   onClick={() => setActivePage('customers')}
-                  color="emerald"
+                  color="indigo"
                 />
                 <ActionCard
                   title="Process Payouts"
                   description="Review pending payouts"
-                  icon="💳"
+                  icon={<HiCreditCard className="w-6 h-6" />}
                   onClick={() => setActivePage('payouts')}
-                  color="amber"
+                  color="indigo"
                 />
                 <ActionCard
                   title="View Reports"
                   description="Analytics & insights"
-                  icon="📊"
+                  icon={<HiChartBar className="w-6 h-6" />}
                   onClick={() => setActivePage('reports')}
-                  color="rose"
+                  color="indigo"
                 />
               </div>
             </motion.div>
@@ -6765,7 +6767,7 @@ export default function AdminDashboard() {
                     </div>
                   ) : (
                     <EmptyState
-                      icon="📊"
+                      icon={<HiChartBar className="w-5 h-5" />}
                       title="No partners yet"
                       description="Partners will appear here once they join your program"
                     />
@@ -6823,7 +6825,7 @@ export default function AdminDashboard() {
                     </div>
                   ) : (
                     <EmptyState
-                      icon="👥"
+                      icon={<HiUsers className="w-5 h-5" />}
                       title="No customers yet"
                       description="Referred customers will appear here"
                     />

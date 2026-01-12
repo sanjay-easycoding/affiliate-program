@@ -226,7 +226,7 @@ export const StatsCard = ({
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.5, delay }}
       whileHover={{ y: -6, boxShadow: '0 25px 50px -12px rgba(0, 0, 0, 0.15)' }}
-      className="group relative overflow-hidden bg-white rounded-3xl p-6 shadow-xl shadow-gray-200/50 border border-gray-100/80"
+      className="group relative overflow-hidden bg-white rounded-3xl p-6 shadow-xl shadow-gray-200/50 border border-[#e6e6e6]"
     >
       {/* Animated background gradient on hover */}
       <div className={`absolute inset-0 bg-gradient-to-br ${lightGradient} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
